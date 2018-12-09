@@ -3,7 +3,7 @@ using System.Collections;
 
 public class RFX4_DeactivateByTime : MonoBehaviour {
 
-    public float DeactivateTime = 3;
+    public float DeactivateTime = 2;
 
     private bool canUpdateState;
 	// Use this for initialization
@@ -17,6 +17,7 @@ public class RFX4_DeactivateByTime : MonoBehaviour {
         if (canUpdateState) {
             canUpdateState = false;
             Invoke("DeactivateThis", DeactivateTime);
+            Player.Instance.TakeDamage(20);
         }
     }
 

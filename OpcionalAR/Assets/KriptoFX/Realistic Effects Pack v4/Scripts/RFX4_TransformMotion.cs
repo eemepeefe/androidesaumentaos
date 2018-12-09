@@ -33,6 +33,8 @@ public class RFX4_TransformMotion : MonoBehaviour
     private bool dropFirstFrameForFixUnityBugWithParticles;
     public event EventHandler<RFX4_CollisionInfo> CollisionEnter;
 
+    private Transform target;
+
     void Start()
     {
         t = transform;
@@ -41,6 +43,8 @@ public class RFX4_TransformMotion : MonoBehaviour
         oldPos = t.TransformPoint(startPositionLocal);
         Initialize();
         isInitialized = true;
+        target = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        
     }
 
     void OnEnable()
@@ -76,6 +80,8 @@ public class RFX4_TransformMotion : MonoBehaviour
         else dropFirstFrameForFixUnityBugWithParticles = false;
     }
 
+   
+
     void UpdateWorldPosition()
     {
         currentDelay += Time.deltaTime;
@@ -86,8 +92,9 @@ public class RFX4_TransformMotion : MonoBehaviour
         var frameMoveOffsetWorld = Vector3.zero;
         if (!isCollided && !isOutDistance)
         {
+            transform.LookAt(target);
             currentSpeed = Mathf.Clamp(currentSpeed - Speed*Dampeen*Time.deltaTime, MinSpeed, Speed);
-            var currentForwardVector = Vector3.forward*currentSpeed*Time.deltaTime;
+            var currentForwardVector = Vector3.forward * currentSpeed*Time.deltaTime;
             frameMoveOffset = t.localRotation*currentForwardVector;
             frameMoveOffsetWorld = startQuaternion*currentForwardVector;
         }
