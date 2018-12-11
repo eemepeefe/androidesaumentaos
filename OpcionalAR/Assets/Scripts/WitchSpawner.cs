@@ -24,11 +24,18 @@ public class WitchSpawner : MonoBehaviour {
     public float spawnTime = 2f;            // How long between each spawn.
     public Transform[] spawns;
 
+    private float globalTime;
+
     void Start()
     {
-        
+        globalTime = 0;
     }
 
+    void Update()
+    {
+        globalTime += Time.deltaTime;
+        //cuando sea mayor a x segundos, disminuir spawnTime
+    }
     void Spawn()
     {
         // Find a random index between zero and one less than the number of spawn points.

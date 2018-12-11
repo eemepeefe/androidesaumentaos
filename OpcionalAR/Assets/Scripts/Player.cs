@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+
 
 public class Player : MonoBehaviour {
 
@@ -24,6 +26,13 @@ public class Player : MonoBehaviour {
     private int score;
     private WitchScript witch;
 
+    public TextMeshProUGUI livesText;
+    public TextMeshProUGUI scoreText;
+    public GameObject hammer; 
+
+    //Las brujas te matan demasiado rápido y a veces no se mueren
+    //Deberían salir de boquetes del suelo y atacar es la animación del mazo yendo a la bruja
+
     // Use this for initialization
     void Start () {
         lives = 3;
@@ -43,22 +52,22 @@ public class Player : MonoBehaviour {
         
         if (Input.GetMouseButtonDown(0) && Input.mousePosition.x <= Screen.width / 2)
         {
-            InvokeShield();
+           // InvokeShield();
         }
         else if (Input.GetMouseButtonDown(0) && Input.mousePosition.x > Screen.width / 2)
         {
             Shoot();
         }
-        
-       
     }
 
     public void TakeDamage() {
         lives--;
+        livesText.text = "Lives: " + lives; 
     }
 
     public void addScore(int se) {
         score = score + se;
+        scoreText.text = "Score: " + score;
     }
 
     void InvokeShield() {
@@ -78,15 +87,12 @@ public class Player : MonoBehaviour {
         if (objects.Length >= 1) {
             witch = objects[0].GetComponent<WitchScript>();
             witch.Die();
-
-            //Esto si que va 
-            //Destroy(objects[0]);
         }
     }
 
     void endGame() {
         if (lives == 0) {
-            //ir a endgame
+            Debug.Log("Game over");
         }
     }
 }

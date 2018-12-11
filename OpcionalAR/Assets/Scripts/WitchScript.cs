@@ -6,33 +6,27 @@ using Vuforia;
 
 public class WitchScript : MonoBehaviour
 {
-    public Transform firePoint;
+  
     public GameObject fireVFX;
 
     float timer;
-    int waitingTime;
+    float waitingTime;
     Animator anim;
 
 
     private void Start()
     {
-        waitingTime = 3;
+        waitingTime = 2f;
         anim = GetComponent<Animator>();
-        //transform.LookAt(la camara)
-
     }
     void Update()
     {
         timer += Time.deltaTime;
         if (timer > waitingTime)
         {
-
             anim.SetTrigger("Attack");
             timer = 0;
         }
-
-       
-
     }
 
     void Fire()
@@ -45,7 +39,6 @@ public class WitchScript : MonoBehaviour
     {
         //animación de jiñarla y cuando acabe destroy instance
         anim.SetTrigger("Die");
-
     }
 
     public void destroyWitch()
