@@ -6,6 +6,8 @@ using Vuforia;
 
 public class SpawnerEventHandler : DefaultTrackableEventHandler {
 
+    public GameObject spawnManager;
+
     // Use this for initialization
     private void Start () {
         base.Start(); 
@@ -21,6 +23,7 @@ public class SpawnerEventHandler : DefaultTrackableEventHandler {
         base.OnTrackingFound();
         //hide texto ui de buscar escaneo
         WitchSpawner.Instance.activeSpawner();
+        spawnManager.SetActive(true);
 
     }
 
@@ -28,8 +31,9 @@ public class SpawnerEventHandler : DefaultTrackableEventHandler {
     {
         base.OnTrackingLost();
         //cambiar texto ui a Track Perdido, vuelve a trackear para continuar peleando
-        //destruir de la escena todas las brujas pa que no pase nada raro
+        //destruir de la escena todas las brujas
         WitchSpawner.Instance.disableSpawner();
+        spawnManager.SetActive(false);
 
     }
 

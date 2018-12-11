@@ -20,27 +20,41 @@ public class Player : MonoBehaviour {
     }
     #endregion
 
-    private int health;
+    private int lives;
     private int score;
     private WitchScript witch;
 
     // Use this for initialization
     void Start () {
-        health = 100;
+        lives = 3;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        
+
+        /*
         if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began && Input.mousePosition.x <= Screen.width / 2) {
             InvokeShield();
         } else if(Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began && Input.mousePosition.x > Screen.width / 2) {
             Shoot();
         }
+        
+        */
+        
+        if (Input.GetMouseButtonDown(0) && Input.mousePosition.x <= Screen.width / 2)
+        {
+            InvokeShield();
+        }
+        else if (Input.GetMouseButtonDown(0) && Input.mousePosition.x > Screen.width / 2)
+        {
+            Shoot();
+        }
+        
+       
     }
 
-    public void TakeDamage(int damage) {
-        health = health - damage;
+    public void TakeDamage() {
+        lives--;
     }
 
     public void addScore(int se) {
@@ -57,17 +71,22 @@ public class Player : MonoBehaviour {
     }
 
     void Shoot() {
+        
         GameObject[] objects = GameObject.FindGameObjectsWithTag("Witch");
         Debug.Log("Attack");
+
         if (objects.Length >= 1) {
             witch = objects[0].GetComponent<WitchScript>();
             witch.Die();
+
+            //Esto si que va 
+            //Destroy(objects[0]);
         }
     }
 
     void endGame() {
-        if (health <= 0) {
-            //adios con el curasao
+        if (lives == 0) {
+            //ir a endgame
         }
     }
 }

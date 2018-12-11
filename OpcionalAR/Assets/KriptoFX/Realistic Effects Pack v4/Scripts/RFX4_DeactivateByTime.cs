@@ -17,7 +17,7 @@ public class RFX4_DeactivateByTime : MonoBehaviour {
         if (canUpdateState) {
             canUpdateState = false;
             Invoke("DeactivateThis", DeactivateTime);
-            Player.Instance.TakeDamage(20);
+            Player.Instance.TakeDamage();
         }
     }
 
