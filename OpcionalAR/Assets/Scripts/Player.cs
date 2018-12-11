@@ -28,7 +28,7 @@ public class Player : MonoBehaviour {
 
     public TextMeshProUGUI livesText;
     public TextMeshProUGUI scoreText;
-    public GameObject hammer; 
+    
 
     //Las brujas te matan demasiado rápido y a veces no se mueren
     //Deberían salir de boquetes del suelo y atacar es la animación del mazo yendo a la bruja
@@ -83,10 +83,13 @@ public class Player : MonoBehaviour {
         
         GameObject[] objects = GameObject.FindGameObjectsWithTag("Witch");
         Debug.Log("Attack");
-
+        //Esto va fatal cuando hay varias
+        //Nota: modelo de los hoyos para los spawnpoints tb me falta
         if (objects.Length >= 1) {
+            HammerAttack.Instance.AttackAnim(objects[0].transform);
             witch = objects[0].GetComponent<WitchScript>();
             witch.Die();
+            
         }
     }
 
